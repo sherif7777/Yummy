@@ -16,35 +16,32 @@ $(".menu-btn").click(function () {
 class Main {
   constructor() {
     this.getMealByName("");
-    this.showSearchInput();
-
+    
     $(".Categories").click(() => {
       this.getCategories();
+      $("#searchContainer").html("");
     });
+
     $(".Area").on("click", () => {
       this.getArea();
+      $("#searchContainer").html("");
     });
-
+    
     $(".Ingredients").click(() => {
       this.getIngredients();
-    });
-    $(".Contact").click(() => {
-      this.showContacts();
-    });
-    //mainEvents
-    $(".searchByNameInput").on("keyup", (e) => {
-      this.getMealByName(e.target.value);
+      $("#searchContainer").html("");
     });
 
-    $(".searchByLetterInput").on("keyup", (e) => {
-      this.getMealByFLetter(e.target.value);
+    $(".Contact").click(() => {
+      this.showContacts();
+      $("#searchContainer").html("");
     });
 
     $("body").on("click", ".card", (e) => {
       this.getMealById(e.currentTarget.dataset.id);
     });
   }
-
+  
   showContacts() {
     let content = `<div class="contact min-vh-100 d-flex justify-content-center align-items-center">
     <div class="container w-75 text-center">
@@ -117,19 +114,19 @@ class Main {
       repasswordInputTouched = true;
     });
   }
-
+  
   showSearchInput() {
     let content = `
     <div class="row py-4 ">
         <div class="col-md-6 ">
-            <input class="searchByNameInput form-control bg-transparent text-white" type="text" placeholder="Search By Name">
+            <input onkeyup="start.getMealByName(this.value);" class=" form-control bg-transparent text-white" type="text" placeholder="Search By Name">
         </div>
         <div class="col-md-6">
-            <input maxlength="1" class="searchByLetterInput form-control bg-transparent text-white" type="text" placeholder="Search By First Letter">
+            <input maxlength="1" onkeyup="start.getMealByFLetter(this.value);" class="form-control bg-transparent text-white" type="text" placeholder="Search By First Letter">
         </div>
     </div>`;
     $("#searchContainer").html(content);
-    $(".main").html("");
+   
   }
 
   displayMealDetails(meal) {
